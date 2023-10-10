@@ -9,17 +9,17 @@ title: I18n tools playground
 
 Usage:
 
-Input your PR link, the git ref of the original text cooresponding to the PR, and a GitHub API token without any permissions.
-Generate a description for your PR similar to the one below:
+Put in your PR link, the git ref of the original text cooresponding to the PR, and a GitHub API token without any permissions (used to make readonly API requests to GitHub).
+It will generate a description for your PR similar to the one below:
 
 > Updated translation based on source texts at [b653f6f](https://github.com/withastro/starlight/tree/b653f6f4ba8939e91f5e1ecec14a5a14d7ec1c91).
 >
 > | File | Source | Source Diff | Other Links |
 > | --- | --- | --- | --- |
-> | `guides/customization.mdx` | [source@`b653f6f`](https://github.com/withastro/starlight/blob/b653f6f4ba8939e91f5e1ecec14a5a14d7ec1c91/docs/src/content/docs/guides/customization.mdx) | [`dcce068..b653f6f`](/diff#withastro/starlight/dcce068e1192d99d6c94b70c52e16ef6bcbe87a8..b653f6f4ba8939e91f5e1ecec14a5a14d7ec1c91/docs/src/content/docs/guides/customization.mdx) | [blame@`b653f6f`](https://github.com/withastro/starlight/blame/b653f6f4ba8939e91f5e1ecec14a5a14d7ec1c91/docs/src/content/docs/guides/customization.mdx) <br> [blame@`main`](https://github.com/withastro/starlight/blame/main/docs/src/content/docs/guides/customization.mdx) <br> [history@`main`](https://github.com/withastro/starlight/commits/main/docs/src/content/docs/guides/customization.mdx) |
-> | `reference/configuration.md` | [source@`b653f6f`](https://github.com/withastro/starlight/blob/b653f6f4ba8939e91f5e1ecec14a5a14d7ec1c91/docs/src/content/docs/reference/configuration.md) | [`dcce068..b653f6f`](/diff#withastro/starlight/dcce068e1192d99d6c94b70c52e16ef6bcbe87a8..b653f6f4ba8939e91f5e1ecec14a5a14d7ec1c91/docs/src/content/docs/reference/configuration.md) | [blame@`b653f6f`](https://github.com/withastro/starlight/blame/b653f6f4ba8939e91f5e1ecec14a5a14d7ec1c91/docs/src/content/docs/reference/configuration.md) <br> [blame@`main`](https://github.com/withastro/starlight/blame/main/docs/src/content/docs/reference/configuration.md) <br> [history@`main`](https://github.com/withastro/starlight/commits/main/docs/src/content/docs/reference/configuration.md) |
+> | `guides/customization.mdx` | [source@`b653f6f`](https://github.com/withastro/starlight/blob/b653f6f4ba8939e91f5e1ecec14a5a14d7ec1c91/docs/src/content/docs/guides/customization.mdx) | [`afd26b7..b653f6f`](https://i18n-tools.genteure.com/diff#withastro/starlight/afd26b7b00f26ac49636dce0419622632b79c9c5..b653f6f4ba8939e91f5e1ecec14a5a14d7ec1c91/docs/src/content/docs/guides/customization.mdx) | [blame@`b653f6f`](https://github.com/withastro/starlight/blame/b653f6f4ba8939e91f5e1ecec14a5a14d7ec1c91/docs/src/content/docs/guides/customization.mdx) <br> [blame@`main`](https://github.com/withastro/starlight/blame/main/docs/src/content/docs/guides/customization.mdx) <br> [history@`main`](https://github.com/withastro/starlight/commits/main/docs/src/content/docs/guides/customization.mdx) |
+> | `reference/configuration.md` | [source@`b653f6f`](https://github.com/withastro/starlight/blob/b653f6f4ba8939e91f5e1ecec14a5a14d7ec1c91/docs/src/content/docs/reference/configuration.md) | [`afd26b7..b653f6f`](https://i18n-tools.genteure.com/diff#withastro/starlight/afd26b7b00f26ac49636dce0419622632b79c9c5..b653f6f4ba8939e91f5e1ecec14a5a14d7ec1c91/docs/src/content/docs/reference/configuration.md) | [blame@`b653f6f`](https://github.com/withastro/starlight/blame/b653f6f4ba8939e91f5e1ecec14a5a14d7ec1c91/docs/src/content/docs/reference/configuration.md) <br> [blame@`main`](https://github.com/withastro/starlight/blame/main/docs/src/content/docs/reference/configuration.md) <br> [history@`main`](https://github.com/withastro/starlight/commits/main/docs/src/content/docs/reference/configuration.md) |
 
-**Pro tip**: you can use `main@{4 days ago}` (main at 4 days ago) or `main~10` (main but 4 commits ago) as the "before ref".
+**Pro tip**: you can use `main@{4 days ago}` (main at 4 days ago) or `main~10` (main but 10 commits ago) as the "before ref".
 
 ## Single file diff view
 

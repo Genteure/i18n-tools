@@ -1,0 +1,144 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// http://localhost:4321/diff#withastro/starlight/70a32a1736c776febb34cf0ca3014f375ff9fec8..140e729a8bf12f805ae0b7e2b5ad959cf68d8e22/docs/src/content/docs/reference/configuration.md
+---
+
+<Layout title="Single file diff view">
+	<main>
+		<h1 class="text-3xl text-center">Single file diff view</h1>
+		<div id="status" class="text-center text-orange-400 font-bold text-xl">
+			Loading
+		</div>
+		<div id="diffinfo" class="hidden m-4">
+			<div>
+				<div
+					id="diff-repo"
+					class="truncate font-mono border border-gray-700 rounded-lg p-1 bg-gray-800 max-w-max mx-auto"
+				>
+				</div>
+				<div
+					id="diff-file"
+					class="truncate font-mono border border-gray-700 rounded-lg p-1 bg-gray-800 max-w-max mx-auto"
+				>
+				</div>
+			</div>
+			<div class="my-4 flex justify-around">
+				<div
+					id="diff-before-ref"
+					class="truncate font-mono border border-gray-700 rounded-lg p-1 bg-gray-800"
+				>
+				</div>
+				<div
+					id="diff-after-ref"
+					class="truncate font-mono border border-gray-700 rounded-lg p-1 bg-gray-800"
+				>
+				</div>
+			</div>
+		</div>
+		<div id="codeview" class="m-2"></div>
+	</main>
+</Layout>
+
+<script>
+	import { MergeView } from "@codemirror/merge";
+	import { EditorView, basicSetup } from "codemirror";
+	import { EditorState } from "@codemirror/state";
+	import { markdown } from "@codemirror/lang-markdown";
+	import { githubDark } from "@uiw/codemirror-theme-github";
+
+	const status = document.getElementById("status");
+	if (!status) throw new Error("status element not found");
+
+	let view: MergeView | null = null;
+
+	async function setupDiff() {
+		console.log("running setupDiff");
+		if (!status) return;
+
+		view?.destroy();
+
+		const segments = window.location.hash.slice(1).split("/");
+		if (segments.length < 4) {
+			status.innerText = "Invalid URL";
+			return;
+		}
+
+		const [owner, repo, diff] = segments;
+
+		// if diff contains three dots, output error message because we don't support three dots diff
+		if (diff.includes("...")) {
+			status.innerText = "Three dots diff is not supported";
+			return;
+		}
+
+		const [from, to] = diff.split("..");
+		const file = segments.slice(3).join("/");
+
+		// if any of the arguments are empty, bail
+		if (!owner || !repo || !from || !to || !file) {
+			status.innerText = "Invalid URL";
+			return;
+		}
+
+		status.innerText = `Loading files...`;
+		document.getElementById("diffinfo")?.classList.add("hidden");
+
+		const beforeText = await fetchFile(owner, repo, from, file);
+		const afterText = await fetchFile(owner, repo, to, file);
+		// const beforeText = "example before text";
+		// const afterText = "example after text";
+
+		const codeview = document.getElementById("codeview");
+		if (!codeview) throw new Error("codeview element not found");
+
+		const extensions = [
+			basicSetup,
+			githubDark,
+			markdown(),
+			EditorView.lineWrapping,
+			EditorView.editable.of(false),
+			EditorState.readOnly.of(true),
+		];
+
+		view = new MergeView({
+			a: {
+				doc: beforeText,
+				extensions,
+			},
+			b: {
+				doc: afterText,
+				extensions,
+			},
+			gutter: true,
+			collapseUnchanged: {},
+			parent: codeview,
+		});
+
+		status.innerText = "";
+		document.title = `Comparing ${
+			segments[segments.length - 1]
+		} - ${owner}/${repo}`;
+
+		document.getElementById("diff-repo")!.innerText = `${owner}/${repo}`;
+		document.getElementById("diff-file")!.innerText = file;
+		document.getElementById("diff-before-ref")!.innerText = from;
+		document.getElementById("diff-after-ref")!.innerText = to;
+		document.getElementById("diffinfo")?.classList.remove("hidden");
+	}
+
+	async function fetchFile(
+		owner: string,
+		repo: string,
+		ref: string,
+		file: string,
+	): Promise<string> {
+		const url = `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${file}`;
+		const response = await fetch(url);
+		const text = await response.text();
+		return text;
+	}
+
+	setupDiff();
+	window.addEventListener("hashchange", setupDiff);
+</script>

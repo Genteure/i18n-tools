@@ -14,3 +14,7 @@ Usage:
 Example:
 
 [/diff#withastro/starlight/70a32a1736c776febb34cf0ca3014f375ff9fec8..140e729a8bf12f805ae0b7e2b5ad959cf68d8e22/docs/src/content/docs/reference/configuration.md](/diff#withastro/starlight/70a32a1736c776febb34cf0ca3014f375ff9fec8..140e729a8bf12f805ae0b7e2b5ad959cf68d8e22/docs/src/content/docs/reference/configuration.md)
+
+## Source code
+
+Source code for this website is available at <https://github.com/genteure/i18n-tools>

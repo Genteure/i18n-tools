@@ -1,0 +1,13 @@
+---
+import Layout from "../layouts/Layout.astro";
+import DescriptionGenerator from "../components/DescriptionGenerator";
+---
+
+<Layout title="PR description generator">
+	<main class="max-w-prose mx-auto">
+		<h1 class="text-3xl my-4 text-center">PR description generator</h1>
+		<div>
+			<DescriptionGenerator client:load />
+		</div>
+	</main>
+</Layout>

@@ -6,7 +6,7 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="Single file diff view">
 	<main>
-		<h1 class="text-3xl text-center">Single file diff view</h1>
+		<h1 class="text-3xl my-2 text-center">Single file diff view</h1>
 		<div id="status" class="text-center text-orange-400 font-bold text-xl">
 			Loading
 		</div>
@@ -14,29 +14,29 @@ import Layout from "../layouts/Layout.astro";
 			<div>
 				<div
 					id="diff-repo"
-					class="truncate font-mono border border-gray-700 rounded-lg p-1 bg-gray-800 max-w-max mx-auto"
+					class="font-mono block badge badge-neutral badge-lg truncate w-auto max-w-max mx-auto my-1"
 				>
 				</div>
 				<div
 					id="diff-file"
-					class="truncate font-mono border border-gray-700 rounded-lg p-1 bg-gray-800 max-w-max mx-auto"
+					class="font-mono block badge badge-neutral badge-lg truncate w-auto max-w-max mx-auto my-1"
 				>
 				</div>
 			</div>
 			<div class="my-4 flex justify-around">
 				<div
 					id="diff-before-ref"
-					class="truncate font-mono border border-gray-700 rounded-lg p-1 bg-gray-800"
+					class="font-mono block badge badge-neutral badge-lg truncate"
 				>
 				</div>
 				<div
 					id="diff-after-ref"
-					class="truncate font-mono border border-gray-700 rounded-lg p-1 bg-gray-800"
+					class="font-mono block badge badge-neutral badge-lg truncate"
 				>
 				</div>
 			</div>
 		</div>
-		<div id="codeview" class="m-2"></div>
+		<div id="codeview" class="m-2 border shadow"></div>
 	</main>
 </Layout>
 
@@ -45,7 +45,7 @@ import Layout from "../layouts/Layout.astro";
 	import { EditorView, basicSetup } from "codemirror";
 	import { EditorState } from "@codemirror/state";
 	import { markdown } from "@codemirror/lang-markdown";
-	import { githubDark } from "@uiw/codemirror-theme-github";
+	import { githubLight, githubDark } from "@uiw/codemirror-theme-github";
 
 	const status = document.getElementById("status");
 	if (!status) throw new Error("status element not found");
@@ -94,7 +94,10 @@ import Layout from "../layouts/Layout.astro";
 
 		const extensions = [
 			basicSetup,
-			githubDark,
+			window.matchMedia &&
+			window.matchMedia("(prefers-color-scheme: dark)").matches
+				? githubDark
+				: githubLight,
 			markdown(),
 			EditorView.lineWrapping,
 			EditorView.editable.of(false),

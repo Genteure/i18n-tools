@@ -179,8 +179,8 @@ const DescriptionGenerator: Component = () => {
       const { files: changedFiles, beforeHash, afterHash } = await fetchData(apiToken(), owner, repo, pr, beforeRefValue, afterRefValue);
       const files = changedFiles.map(repoPathInfo.stripBasePath).filter(Boolean) as string[];
 
-      let description = `Updated translation based on source texts at [${afterHash.substring(0, 7)}](https://github.com/${owner}/${repo}/tree/${afterHash}).\n\n`;
-      description += `| File | Source | Source Diff | Other Links |\n`;
+      let description = `Updated translation based on source changes from [${beforeHash.substring(0, 7)}](https://github.com/${owner}/${repo}/tree/${beforeHash}) to [${afterHash.substring(0, 7)}](https://github.com/${owner}/${repo}/tree/${afterHash}).\n\n`;
+      description += `| File | Source | Source Diff | Source History |\n`;
       description += `| --- | --- | --- | --- |\n`;
       for (const file of files) {
         const sourceFile = `${repoPathInfo.sourceBasePath}${file}`;

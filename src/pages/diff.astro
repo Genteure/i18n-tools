@@ -24,16 +24,16 @@ import Layout from "../layouts/Layout.astro";
 				</div>
 			</div>
 			<div class="my-4 flex justify-around">
-				<div
+				<a
 					id="diff-before-ref"
-					class="font-mono block badge badge-neutral badge-lg truncate"
+					class="font-mono underline block badge badge-neutral badge-lg truncate"
 				>
-				</div>
-				<div
+				</a>
+				<a
 					id="diff-after-ref"
-					class="font-mono block badge badge-neutral badge-lg truncate"
+					class="font-mono underline block badge badge-neutral badge-lg truncate"
 				>
-				</div>
+				</a>
 			</div>
 		</div>
 		<div id="codeview" class="m-2 border shadow"></div>
@@ -126,7 +126,9 @@ import Layout from "../layouts/Layout.astro";
 		document.getElementById("diff-repo")!.innerText = `${owner}/${repo}`;
 		document.getElementById("diff-file")!.innerText = file;
 		document.getElementById("diff-before-ref")!.innerText = from;
+		(document.getElementById("diff-before-ref") as HTMLAnchorElement)!.href = `https://github.com/${owner}/${repo}/tree/${from}/${file}`;
 		document.getElementById("diff-after-ref")!.innerText = to;
+		(document.getElementById("diff-after-ref") as HTMLAnchorElement)!.href = `https://github.com/${owner}/${repo}/tree/${to}/${file}`;
 		document.getElementById("diffinfo")?.classList.remove("hidden");
 	}
 
